@@ -61,7 +61,7 @@
 <br>
 <img src="https://github-readme-stats.vercel.app/api?username=heruu-1&show_icons=true&theme=dark">
 <br>
-<img src="https://streak-stats.demolab.com?user=heruu-1&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5" height="200" alt="Streak Graph" >
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=heruu-1&theme=dark" alt="Streak Graph">
 </div>
 <br>
 <img src="https://raw.githubusercontent.com/heruu-1/heruu-1/output/dist/snake.svg" alt="Snake animation" />
