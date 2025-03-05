@@ -63,7 +63,7 @@
 <br>
 </div>
 <br>
-<img src="https://raw.githubusercontent.com/heruu-1/heruu-1/output/dist/snake.svg" alt="Snake animation" />
+<img src="https://raw.githubusercontent.com/heruu-1/heruu-1/output/dist/snake.svg" alt="Snake animation"/>
 
 
 
