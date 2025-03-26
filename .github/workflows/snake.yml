@@ -40,12 +40,14 @@ jobs:
           # Cek apakah branch output sudah ada
           if git show-ref --verify --quiet refs/remotes/origin/output; then
             echo "Branch output already exists. Switching to it."
+            git add -A
             git stash push -u -m "Saving uncommitted changes"
             git checkout output
             git stash pop || echo "No stash to apply"
           else
             echo "Branch output does not exist. Creating a new orphan branch."
             git checkout --orphan output
+          
           fi
           
           # Tambahkan file dan push ke branch output
