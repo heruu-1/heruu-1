@@ -1,9 +1,8 @@
 name: Generate Snake Animation
-
 on:
   schedule:
-    - cron: "0 */12 * * *" # Jalankan setiap 12 jam
-  workflow_dispatch: # Bisa dijalankan secara manual
+    - cron: "0 */12 * * *"  # Jalankan setiap 12 jam
+  workflow_dispatch:  # Memungkinkan manual trigger
   push:
     branches:
       - main
@@ -14,43 +13,26 @@ jobs:
       contents: write
       pages: write
       id-token: write
-
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Generate snake.svg
+      - name: Generate Snake Animation
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: ${{ github.repository_owner }}
-          outputs: snake.svg
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Push snake.svg to the output branch
-        run: |
-          git fetch origin
-          
-          # Cek apakah branch output sudah ada
-          if git show-ref --verify --quiet refs/remotes/origin/output; then
-            echo "Branch output already exists. Switching to it."
-            git add -A
-            git stash push -u -m "Saving uncommitted changes"
-            git checkout output
-            git stash pop || echo "No stash to apply"
-          else
-            echo "Branch output does not exist. Creating a new orphan branch."
-            git checkout --orphan output
-          
-          fi
-          
-          # Tambahkan file dan push ke branch output
-          git add snake.svg
-          git commit -m "Update snake animation"
-          git push --force origin output
+      - name: Push Snake Animation to Output Branch
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
