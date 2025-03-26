@@ -1,54 +1,31 @@
 name: Generate Snake Animation
 
 on:
-  schedule:
-    - cron: "0 */12 * * *" # Jalankan setiap 12 jam
-  workflow_dispatch: # Bisa dijalankan secara manual
   push:
     branches:
-      - main
+      - output
 
 jobs:
-  generate:
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - uses: actions/checkout@v2
 
-      - name: Generate snake.svg
-        uses: Platane/snk/svg-only@v3
-        with:
-          github_user_name: ${{ github.repository_owner }}
-          outputs: snake.svg
+    - name: Remove untracked files
+      run: |
+        git clean -fdx
 
-      - name: Setup Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Checkout output branch
+      run: |
+        git fetch origin
+        git checkout output
 
-      - name: Push snake.svg to the output branch
-        run: |
-          git fetch origin
-          
-          # Cek apakah branch output sudah ada
-          if git show-ref --verify --quiet refs/remotes/origin/output; then
-            echo "Branch output already exists. Switching to it."
-            git stash push -m "Saving uncommitted changes"
-            git checkout output
-            git stash pop || echo "No stash to apply"
-          else
-            echo "Branch output does not exist. Creating a new orphan branch."
-            git checkout --orphan output
-          fi
-          
-          # Tambahkan file dan push ke branch output
-          git add snake.svg
-          git commit -m "Update snake animation"
-          git push --force origin output
+    - name: Generate Snake Animation
+      run: |
+        # Your existing commands to generate the snake animation
+
+    - name: Commit and push changes
+      run: |
+        git add snake.svg
+        git commit -m "Update snake animation"
+        git push origin output
