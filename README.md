@@ -43,5 +43,11 @@
   <br><br>
   <img src="https://github-stats-extended.vercel.app/api?username=heruu-1&show_icons=true&theme=dark" alt="GitHub Stats" />
   <br><br>
-  <img src="https://raw.githubusercontent.com/heruu-1/heruu-1/output/snake.svg" alt="Snake animation" />
+  
+  <!-- Animasi Ular yang Mendukung Tema Terang/Gelap Otomatis -->
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/heruu-1/heruu-1/output/snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/heruu-1/heruu-1/output/snake-light.svg" />
+    <img alt="Snake animation" src="https://raw.githubusercontent.com/heruu-1/heruu-1/output/snake-light.svg" />
+  </picture>
 </div>
